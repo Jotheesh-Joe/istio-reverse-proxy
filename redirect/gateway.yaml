@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: ua-gateway
+  annotations:
+    external-dns.alpha.kubernetes.io/target: REPLACE
+    bakery.volvocars.biz/cert4k8s: enabled
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - static.weu-dev.example.com
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - static.weu-dev.example.com
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: static-tls-secret

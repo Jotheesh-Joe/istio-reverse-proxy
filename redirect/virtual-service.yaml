@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ua-virtual-service
+spec:
+  gateways:
+    - ua-gateway
+  hosts:
+    - static.weu-dev.example.com
+  http:
+    - match:
+        - uri:
+            prefix: /api
+      route:
+        - destination:
+            host: ua-service
+            port:
+              number: 8080
+    - match:
+      - uri:
+          prefix: /
+     redirect:
+        authority: static-azure-page.z6.web.core.windows.net

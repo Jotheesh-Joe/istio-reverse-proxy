@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: proxy-destination-rules
+  namespace: proxy
+spec:
+  host: original-url.weu-dev.example.com
+  trafficPolicy:
+    tls:
+      mode: SIMPLE
+      sni: original-url.weu-dev.example.com

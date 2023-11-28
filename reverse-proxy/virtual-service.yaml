@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: proxy-virtual-service
+  namespace: proxy
+spec:
+  gateways:
+  - proxy-gateway
+  hosts:
+  - proxy-url.eu-dev.example.com
+  http:
+  - rewrite:
+      authority: original-url.weu-dev.example.com
+    route:
+    - destination:
+        host: original-url.weu-dev.example.com
